@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour , IHealing
 {
     [SerializeField] float _maxHealth = 20.0f;
     float _health;

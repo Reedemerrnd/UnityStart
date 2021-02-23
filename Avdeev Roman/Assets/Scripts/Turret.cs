@@ -10,9 +10,14 @@ public class Turret : MonoBehaviour
     bool _playerSpotted = false;
     [SerializeField] float _speed = 0.5f;
     Transform _muzzle;
+    float _minAnlge;
+    float _maxAngle;
     private void Start()
     {
         _muzzle = transform.Find("Muzzle");
+        _minAnlge = transform.rotation.eulerAngles.y - 45.0f;
+        _maxAngle = transform.rotation.eulerAngles.y + 45.0f;
+
     }
     private void OnTriggerStay(Collider other)
     {
@@ -39,11 +44,12 @@ public class Turret : MonoBehaviour
                 _bullet.transform.Rotate(new Vector3(-90, 0, 0), Space.Self);
                 Debug.Log(_bullet);
             }
-            var dir = _target.position - transform.position;
-            dir.y += 3;
-            dir.x = Mathf.Clamp(dir.x, -75.0f, 75.0f);
-            var newDir = Vector3.RotateTowards(transform.forward, dir, _speed * Time.deltaTime, 0f);
-            transform.rotation = Quaternion.LookRotation(newDir);
+
+                var dir = _target.position - transform.position;
+                dir.y += 3;
+                var newDir = Vector3.RotateTowards(transform.forward, dir, _speed * Time.deltaTime, 0f);
+                var quat = Quaternion.LookRotation(newDir);
+                transform.rotation = quat;
 
         }
     }

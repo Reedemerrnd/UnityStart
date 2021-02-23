@@ -13,13 +13,6 @@ public class AIHealth : MonoBehaviour
     {
         wander = GetComponent<AIWander>();
     }
-    private void OnParticleCollision(GameObject other)
-    {
-        wander.TargetSpotted(other.transform.parent.gameObject);
-         var dmg = other.transform.parent.GetComponent<RayShooter>().Damage;
-        Hit(dmg);
-    }
-
     public void Hit(float damage, GameObject hitter)
     {
         wander.TargetSpotted(hitter);
