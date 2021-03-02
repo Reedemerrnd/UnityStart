@@ -51,7 +51,6 @@ public class Riddle : MonoBehaviour
         }
         else 
         {
-            Debug.Log("Wrong");
             _stage1 = false;
             _stage2 = false;
             _stage3 = false;

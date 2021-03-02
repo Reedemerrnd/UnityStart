@@ -13,10 +13,10 @@ NavMeshProjectSettings:
     cost: 2
   - name: Enemy
     cost: 1
-  - name: 
-    cost: 1
-  - name: 
-    cost: 1
+  - name: Hardly Walkable
+    cost: 5
+  - name: Medium Walkable
+    cost: 3
   - name: 
     cost: 1
   - name: 
