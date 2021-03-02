@@ -5,15 +5,21 @@ using UnityEngine.AI;
 
 public class AIWander : MonoBehaviour
 {
-    Animator animator;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _runSpeed;
-    [SerializeField] private float _obstacleRange;
-    [SerializeField] private float _attackDistance = 3.0f;
-    [SerializeField] private float _rotationSpeed;
-    private bool _alive = true;
+    private Animator _animator;
+    [SerializeField] 
+    private float _speed;
+    [SerializeField] 
+    private float _runSpeed;
+    [SerializeField] 
+    private float _obstacleRange;
+    [SerializeField] 
+    private float _attackDistance = 3.0f;
+    [SerializeField] 
+    private float _rotationSpeed;
+    private AIHealth _aiHealth;
     private bool _playerSpotted = false;
-    private GameObject _player;
+    private Transform _playerPos;
+    private Vector3 _lastPosition;
     private Vector3 _movement = Vector3.forward;
 
     [SerializeField] private bool _isOnPatrol;
@@ -24,39 +30,41 @@ public class AIWander : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _navAgent = GetComponent<NavMeshAgent>();
-        //_navAgent.autoBraking = false;
+        _aiHealth = GetComponent<AIHealth>();
         _navAgent.angularSpeed = _rotationSpeed;
         _navAgent.stoppingDistance = _attackDistance;
-        if (_isOnPatrol && _waypoints!=null) _navAgent.SetDestination(_waypoints[_currentWp].position);
+        if (_isOnPatrol && _waypoints!=null) 
+            _navAgent.SetDestination(_waypoints[_currentWp].position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_alive)
+        if (_aiHealth.IsAlive)
         {
             if (_playerSpotted)
             {
-                _isOnPatrol = false;
-                Vector3 playerPos = _player.transform.position;
-                animator.SetBool("PlayerSpot", true);
-                _navAgent.speed = _runSpeed;
-                _navAgent.destination = _player.transform.position;
+                Vector3 playerPos = _playerPos.position;
+                RunAnim();
+                _navAgent.destination = _playerPos.position;
                 if (_navAgent.remainingDistance <= _attackDistance)
                 {
-                    animator.SetBool("PlayerNear", true);
+                    _animator.SetBool("PlayerNear", true);
                     _navAgent.isStopped = true;
-                    gameObject.transform.LookAt(new Vector3(playerPos.x, 0, playerPos.z));
+                    gameObject.transform.LookAt(
+                        new Vector3(playerPos.x, 0, playerPos.z)
+                        );
                 }
 
                 else
-                    animator.SetBool("PlayerNear", false);
+                    _animator.SetBool("PlayerNear", false);
                 _navAgent.isStopped = false;
             }
-            else if (_isOnPatrol && _waypoints != null) 
+            else if (_isOnPatrol && _waypoints != null)
             {
+                WalkAnim();
                 if (_navAgent.remainingDistance < _navAgent.stoppingDistance)
                 {
                     _currentWp += 1;
@@ -64,17 +72,28 @@ public class AIWander : MonoBehaviour
                     _navAgent.SetDestination(_waypoints[_currentWp].position);
                 }
             }
-            else Wander();
+            else
+            { 
+                Wander();
+            }
 
 
+        }
+        else if (!_aiHealth.IsAlive)
+        {
+            _navAgent.isStopped = true;
+            _animator.SetBool("Death", true);
+            Destroy(gameObject, 2);
         }
     }
     private void Wander()
     {
+        WalkAnim();
         _movement.z = _speed * Time.deltaTime;
         transform.Translate(_movement);
         {
-            UnityEngine.Ray ray = new UnityEngine.Ray(transform.position, transform.forward);
+            UnityEngine.Ray ray = new UnityEngine.Ray(
+                transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.SphereCast(ray, 0.75f, out hit))
                 if (hit.distance < _obstacleRange)
@@ -84,16 +103,31 @@ public class AIWander : MonoBehaviour
                 }
         }
     }
-    public void TargetSpotted(GameObject target)
+    public void TargetSpotted(Transform target)
     {
-        _player = target;
+        RunAnim();
+        _playerPos = target;
         _playerSpotted = true;
     }
-    public void Die()
+    public void TargetLastPos(Transform target)
     {
-        _alive = false;
-        _navAgent.isStopped = true;
-        animator.SetBool("Death", true);
-        Destroy(gameObject, 2);
+        RunAnim();
+        _lastPosition = target.position;
+        _navAgent.destination = _lastPosition;
+        _playerSpotted = false;
     }
+    private void WalkAnim()
+    {
+        _animator.SetBool("PlayerNear", false);
+        _animator.SetBool("PlayerSpot", false);
+        _navAgent.speed = _speed;
+    }
+    private void RunAnim()
+    {
+        _animator.SetBool("PlayerNear", false);
+        _animator.SetBool("PlayerSpot", true);
+        _navAgent.speed = _runSpeed;
+    }
+
+
 }

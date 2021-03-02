@@ -9,7 +9,6 @@ public class RayShooter : MonoBehaviour
     private List<IWeapon> _weapons = new List<IWeapon>();
     private int _currWeapon = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         _cam = transform.Find("MainCam").GetComponent<Camera>();
@@ -18,19 +17,34 @@ public class RayShooter : MonoBehaviour
         transform.GetComponentsInChildren(_weapons);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             _currWeapon += 1;
             if (_currWeapon >= _weapons.Count) _currWeapon = 0;
         }
-        
-        if (Input.GetMouseButtonDown(0) && _weapons[_currWeapon]!=null)
+
+        if (Input.GetMouseButtonDown(0) && _weapons[_currWeapon] != null)
         {
             _weapons[_currWeapon].Fire();
         }
+
+        /*если while достаточно большой, 
+        чтобы не успеть выполниться во время одного кадра
+        (т.к. Update вызывается каждый кадр),
+        while видимо фризит всё пока не выполнится 
+        и не сможет начать выполняться следующий Update
+        */
+        //while (n <= 1000)
+        //{
+        //    if (Input.GetMouseButtonDown(0) && _weapons[_currWeapon] != null)
+        //    {
+        //        _weapons[_currWeapon].Fire();
+        //    }
+        //    n++;
+        //}
     }
     public void DoubleDamage()
     {

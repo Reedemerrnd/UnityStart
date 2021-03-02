@@ -11,14 +11,14 @@ public class Shotgun : MonoBehaviour,IWeapon
     private float _fireRate;
     private float _timer;
 
-    GameObject shooter;
+    Transform shooter;
 
-    public GameObject Shooter => shooter;
+    public Transform Shooter => shooter;
 
     private void Start()
     {
         shot = GetComponent<ParticleSystem>();
-        shooter = transform.parent.gameObject;
+        shooter = transform.parent.transform;
 
     }
     private void OnParticleCollision(GameObject other)
@@ -27,7 +27,7 @@ public class Shotgun : MonoBehaviour,IWeapon
         Debug.Log(other.tag);
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<AIHealth>().Hit(_damage, Shooter);
+            other.GetComponent<Health>().Hit(_damage, Shooter);
         }
     }
 

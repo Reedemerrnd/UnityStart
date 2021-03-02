@@ -11,13 +11,13 @@ public class RayGun : MonoBehaviour, IWeapon
     private Camera _cam;
 
     public ParticleSystem particle;
-    private GameObject shooter;
-    public GameObject Shooter => shooter;
+    private Transform shooter;
+    public Transform Shooter => shooter;
 
     void Start()
     {
         _cam = transform.parent.GetComponent<Camera>();
-        shooter = transform.parent.gameObject;
+        shooter = transform.parent.transform;
     }
     public  void Fire()
     {
@@ -28,7 +28,7 @@ public class RayGun : MonoBehaviour, IWeapon
         {
             GameObject hitObj = hit.transform.gameObject;
 
-            AIHealth target = hitObj.GetComponent<AIHealth>();
+            Health target = hitObj.GetComponent<Health>();
             if (target != null)
             {
                 target.Hit(_damage, Shooter);
