@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
-    [SerializeField] 
     private float _damage = 10.0f;
     [SerializeField]
     private float _activationTime = 1.0f;
@@ -33,6 +32,10 @@ public class Mine : MonoBehaviour
             Destroy(gameObject, 4);
             _trigger.enabled = true;
         }   
+    }
+    public void SetDamage(float damage)
+    {
+        _damage = damage;
     }
     private void OnTriggerEnter(Collider other)
     {

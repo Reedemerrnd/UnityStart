@@ -6,14 +6,15 @@ public class MouseLook : MonoBehaviour
 {
     
     
-    [SerializeField]
-    private Camera _cam;
-    private Rigidbody _body;
+    //[SerializeField]
+    //private Camera _cam;
     [SerializeField]
     private float _sensivityHor = 9.0f;
     [SerializeField]
     private float _sensivityVer = 9.0f;
-    
+
+    private Transform _camJoint;
+    private Transform _weaponJoint;
     private float minVert = -90.0f;
     private float maxVert = 90.0f;
 
@@ -21,8 +22,10 @@ public class MouseLook : MonoBehaviour
 
     private void Start()
     {
-        _body = GetComponent<Rigidbody>();
+        _camJoint = transform.Find("CamJoint");
+        _weaponJoint = transform.Find("JointWeap");
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -31,9 +34,11 @@ public class MouseLook : MonoBehaviour
             _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
 
             float delta = Input.GetAxis("Mouse X") * _sensivityHor;
-            float rotationY = _body.transform.localEulerAngles.y + delta;
-            _body.transform.localEulerAngles = new Vector3(0, rotationY, 0);
-            _cam.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
-       
+            float rotationY = transform.localEulerAngles.y + delta;
+            transform.localEulerAngles = new Vector3(0, rotationY, 0);
+            _camJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
+            _weaponJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
+        //_cam.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
+
     }
 }

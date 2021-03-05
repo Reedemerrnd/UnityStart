@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    [SerializeField]
+    private float _duration;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<RayShooter>().DoubleDamage();
+            other.GetComponent<IBuffed>().Buff(_duration);
             Destroy(gameObject);
         }
     }

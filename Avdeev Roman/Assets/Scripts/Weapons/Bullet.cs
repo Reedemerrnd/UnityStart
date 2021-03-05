@@ -5,15 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float _damage = 2.0f;
-    [SerializeField] float _speed = 10.0f;
-
-
-    // Update is called once per frame
-    void Update()
+        private void Start()
     {
-        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
         Destroy(gameObject, 2);
     }
+
+    // Update is called once per frame
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -21,6 +19,7 @@ public class Bullet : MonoBehaviour
             other.GetComponent<Health>().Hit(_damage);
             Destroy(gameObject);
         }
-
+        else if(other.CompareTag("Level")) 
+            Destroy(gameObject);
     }
 }

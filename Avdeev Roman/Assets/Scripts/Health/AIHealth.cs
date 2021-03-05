@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIHealth : Health
 {
     private AIWander _wander;
-    public override void Start()
+    private new void Start()
     {
         base.Start();
         _wander = GetComponent<AIWander>();
@@ -17,6 +17,7 @@ public class AIHealth : Health
         if (_health <= 0)
         {
             _isAlive = false;
+            OnDeath?.Invoke();
         }
     }
 

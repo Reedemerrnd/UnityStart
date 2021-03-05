@@ -9,6 +9,7 @@ public class RayGun : MonoBehaviour, IWeapon
     [SerializeField]
     private float _fireRate;
     private Camera _cam;
+    private Transform _camJoint;
 
     public ParticleSystem particle;
     private Transform shooter;
@@ -16,15 +17,17 @@ public class RayGun : MonoBehaviour, IWeapon
 
     void Start()
     {
-        _cam = transform.parent.GetComponent<Camera>();
+        //_cam = transform.parent.GetComponent<Camera>();
+        _camJoint = transform.parent.Find("CamJoint");
         shooter = transform.parent.transform;
     }
     public  void Fire()
     {
-        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-            //_cam.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        //if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(_camJoint.position, Vector3.forward, out hit))
         {
             GameObject hitObj = hit.transform.gameObject;
 
@@ -42,5 +45,10 @@ public class RayGun : MonoBehaviour, IWeapon
         }
 
 
+    }
+
+    public void BuffDamage(bool buffed)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -27,6 +27,7 @@ public class PlayerHealth : Health , IHealing
     }
     private void Die()
     {
+        OnDeath?.Invoke();
         gameObject.SetActive(false);
     }
 }
