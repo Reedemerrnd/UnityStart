@@ -2,24 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayShooter : MonoBehaviour
+public class RayShooter : MonoBehaviour, IBuffed
 {
-    private Camera _cam;
-    public Texture cross;
+    //private Camera _cam;
+    //public Texture cross;
     private List<IWeapon> _weapons = new List<IWeapon>();
     private int _currWeapon = 0;
+    private bool _buffed;
+    private float _timer;
+    private float _duration;
 
     void Start()
     {
-        _cam = transform.Find("MainCam").GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //_cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         transform.GetComponentsInChildren(_weapons);
+        _buffed = false;
+
     }
 
 
     void Update()
     {
+        if (_buffed)
+        {
+            if (Time.time - _timer >= _duration)
+            {
+                _buffed = false;
+                foreach (IWeapon weapon in _weapons)
+                {
+                    weapon.BuffDamage(false);
+                }
+                transform.Find("JointWeap").Find("Weapon").GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             _currWeapon += 1;
@@ -46,15 +63,24 @@ public class RayShooter : MonoBehaviour
         //    n++;
         //}
     }
-    public void DoubleDamage()
+
+
+    public void Buff(float duration)
     {
-        //_damage *= 2;
+        _timer = Time.time;
+        _duration = duration;
+        _buffed = true;
+        foreach (IWeapon weapon in _weapons)
+        {
+            weapon.BuffDamage(true);
+        }
+        transform.Find("JointWeap").Find("Weapon").GetComponent<MeshRenderer>().material.color = Color.red;
     }
-    private void OnGUI()
-    {
-        int size = 30;
-        float x = _cam.pixelWidth / 2 - size / 4;
-        float y = _cam.pixelHeight / 2 - size / 2;
-        GUI.Label(new Rect(x, y, size, size),cross);
-    }
+    //private void OnGUI()
+    //{
+    //    int size = 30;
+    //    float x = _cam.pixelWidth / 2 - size / 4;
+    //    float y = _cam.pixelHeight / 2 - size / 2;
+    //    GUI.Label(new Rect(x, y, size, size),cross);
+    //}
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface  IWeapon 
 {
-
-public void Fire();
-    public Transform Shooter { get;}
+    public Transform Shooter { get; }
+    public void Fire();
+    public void BuffDamage(bool buffed);
 
 
 }

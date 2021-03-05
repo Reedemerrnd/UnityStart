@@ -6,7 +6,8 @@ public class Shotgun : MonoBehaviour,IWeapon
 {
     private ParticleSystem shot;
     [SerializeField]
-    private float _damage;
+    private float _baseDamage;
+    private float _currDamage;
     [SerializeField]
     private float _fireRate;
     private float _timer;
@@ -19,15 +20,14 @@ public class Shotgun : MonoBehaviour,IWeapon
     {
         shot = GetComponent<ParticleSystem>();
         shooter = transform.parent.transform;
+        _currDamage = _baseDamage;
 
     }
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("part coll");
-        Debug.Log(other.tag);
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<Health>().Hit(_damage, Shooter);
+            other.GetComponent<Health>().Hit(_currDamage, Shooter);
         }
     }
 
@@ -38,5 +38,14 @@ public class Shotgun : MonoBehaviour,IWeapon
         {
             shot.Play();
         }
+    }
+
+    public void BuffDamage(bool buffed = false)
+    {
+        if (buffed)
+        {
+            _currDamage = _baseDamage * 2;
+        }
+        else _currDamage = _baseDamage;
     }
 }

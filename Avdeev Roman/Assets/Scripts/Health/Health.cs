@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Health : MonoBehaviour
 {
@@ -9,8 +10,9 @@ public abstract class Health : MonoBehaviour
     [SerializeField]
     protected float _health;
     protected bool _isAlive;
+    public UnityAction OnDeath;
     public bool IsAlive => _isAlive;
-    public virtual void Start()
+    protected virtual void Start()
     {
         _health = _maxHealth;
         _isAlive = true;
@@ -29,6 +31,7 @@ public abstract class Health : MonoBehaviour
         if (_health <= 0)
         {
             _isAlive = false;
+            OnDeath?.Invoke();
         }
     }
 }
