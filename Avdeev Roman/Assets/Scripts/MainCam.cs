@@ -6,8 +6,6 @@ public class MainCam : MonoBehaviour
 {
     private Camera _cam;
     [SerializeField]
-    private Texture _cross;
-    [SerializeField]
     bool _followPlayer;
     private Transform _player;
     void Start()
@@ -29,11 +27,5 @@ public class MainCam : MonoBehaviour
             transform.rotation = _player.rotation;
         }
     }
-    private void OnGUI()
-    {
-        int size = 30;
-        float x = _cam.pixelWidth / 2 - size / 4;
-        float y = _cam.pixelHeight / 2 - size / 2;
-        GUI.Label(new Rect(x, y, size, size), _cross);
-    }
+
 }
