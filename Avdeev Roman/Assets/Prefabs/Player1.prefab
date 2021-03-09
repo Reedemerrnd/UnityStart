@@ -92,10 +92,9 @@ GameObject:
   - component: {fileID: 239787578146068054}
   - component: {fileID: 6363834156320611920}
   - component: {fileID: 4631820768287701931}
-  - component: {fileID: 1950695158}
-  - component: {fileID: 1950695159}
   - component: {fileID: 6211019122192096083}
-  - component: {fileID: 679874715775171527}
+  - component: {fileID: 1625546677}
+  - component: {fileID: 4208356687119668604}
   m_Layer: 7
   m_Name: Player1
   m_TagString: Player
@@ -149,36 +148,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 1
---- !u!114 &1950695158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239787578146068049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca11327dcd0b4443880533707844bc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 10
-  _jumpForce: 50
-  _jumpHeight: 1
---- !u!114 &1950695159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 239787578146068049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ae0aa6098c2bbc428e78e3b4daf2f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sensivityHor: 9
-  _sensivityVer: 9
+  m_CollisionDetection: 3
 --- !u!114 &6211019122192096083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +164,25 @@ MonoBehaviour:
   _maxHealth: 40
   _health: 40
   _GodMode: 0
---- !u!114 &679874715775171527
+--- !u!114 &1625546677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239787578146068049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c792a7c3e7cc6134989448a9afc81832, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 10
+  _jumpForce: 100
+  _jumpHeight: 1
+  _sensivityHor: 10
+  _sensivityVer: 10
+  _cross: {fileID: 2800000, guid: 23bfa23193ace824599f6a0a61650f35, type: 3}
+--- !u!114 &4208356687119668604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -371,6 +359,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5875444009653996761}
     m_Modifications:
+    - target: {fileID: -2418118528218872719, guid: 32f67689d735e3347be32737a57dab33, type: 3}
+      propertyPath: _baseDamage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2803795495962884437, guid: 32f67689d735e3347be32737a57dab33, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -489,6 +481,10 @@ PrefabInstance:
       propertyPath: _minePref
       value: 
       objectReference: {fileID: 5474567301702324032, guid: 243af2a87668496428209f069c74e315, type: 3}
+    - target: {fileID: 1909685701844901414, guid: a2398d16a3744f94996ee360334d332c, type: 3}
+      propertyPath: _baseDamage
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1909685701844901414, guid: a2398d16a3744f94996ee360334d332c, type: 3}
       propertyPath: _throwingForce
       value: 100

@@ -5,14 +5,13 @@ using UnityEngine;
 public class MouseLook : MonoBehaviour
 {
     
-    
-    //[SerializeField]
-    //private Camera _cam;
+   
     [SerializeField]
-    private float _sensivityHor = 9.0f;
+    private float _sensivityHor = 10.0f;
     [SerializeField]
-    private float _sensivityVer = 9.0f;
-
+    private float _sensivityVer = 10.0f;
+    public float SensivityX { get=>_sensivityHor; set=>_sensivityHor = value; }
+    public float SensivityY { get => _sensivityVer; set => _sensivityVer = value; }
     private Transform _camJoint;
     private Transform _weaponJoint;
     private float minVert = -90.0f;
@@ -41,4 +40,5 @@ public class MouseLook : MonoBehaviour
         //_cam.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
 
     }
+
 }

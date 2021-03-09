@@ -19,16 +19,11 @@ public class FPSInput : MonoBehaviour
         _body = GetComponent<Rigidbody>();
 
     }
-
     void Update()
     {
         _inputs.x =( Input.GetAxis("Horizontal")*_speed);
-        _inputs.z = (Input.GetAxis("Vertical")*_speed);
-        
+        _inputs.z = (Input.GetAxis("Vertical")*_speed);        
         _inputs = transform.TransformDirection(_inputs);
-       // _inputs.y = _body.velocity.y;
-        //_inputs.x += _body.velocity.x;
-        //_inputs.z += _body.velocity.z;
         _inputs = Vector3.ClampMagnitude(_inputs, _speed);
         
 
@@ -51,21 +46,16 @@ public class FPSInput : MonoBehaviour
         CheckGround();
 
     }
-
+    private void FixedUpdate()
+    {
+        _inputs *= Time.fixedDeltaTime;
+        _body.MovePosition(transform.position + _inputs);
+    }
     private void CheckGround()
     {
         if (transform.position.y <= 0.2f)
         {
             _canJump = true;
         }
-    }
-
-    private void FixedUpdate()
-    {
-        _inputs *= Time.fixedDeltaTime;
-        //_body.velocity = _inputs;
-        //_body.AddForce(_inputs * _speed *Time.fixedDeltaTime, ForceMode.VelocityChange);
-        //transform.Translate(_inputs*Time.fixedDeltaTime);
-        _body.MovePosition(transform.position + _inputs);
     }
 }
