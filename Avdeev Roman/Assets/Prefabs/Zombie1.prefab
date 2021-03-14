@@ -1732,6 +1732,8 @@ MonoBehaviour:
   _runSpeed: 12
   _obstacleRange: 0.5
   _attackDistance: 4
+  _attackSpeed: 2
+  _damage: 2
   _rotationSpeed: 600
   _isOnPatrol: 0
   _waypoints: []

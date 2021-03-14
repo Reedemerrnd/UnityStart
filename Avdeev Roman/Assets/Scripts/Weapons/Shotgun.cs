@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Shotgun : MonoBehaviour,IWeapon
 {
-    private ParticleSystem shot;
+    private ParticleSystem _shotParticle;
     [SerializeField]
     private float _baseDamage;
     private float _currDamage;
     [SerializeField]
     private float _fireRate;
     private float _timer;
+    private AudioSource _shotSound; 
 
     Transform shooter;
 
@@ -18,9 +19,11 @@ public class Shotgun : MonoBehaviour,IWeapon
 
     private void Start()
     {
-        shot = GetComponent<ParticleSystem>();
+        _shotParticle = GetComponent<ParticleSystem>();
+        _shotSound = GetComponent<AudioSource>();
         shooter = transform.parent.transform;
         _currDamage = _baseDamage;
+        _timer = 0;
 
     }
     private void OnParticleCollision(GameObject other)
@@ -33,10 +36,11 @@ public class Shotgun : MonoBehaviour,IWeapon
 
     public void Fire()
     {
-        _timer = Time.time + _fireRate;
-        if (_timer > Time.time)
+        if (_timer <= Time.time)
         {
-            shot.Play();
+            _shotParticle.Play();
+            _timer = Time.time + _fireRate;
+            _shotSound.Play();
         }
     }
 

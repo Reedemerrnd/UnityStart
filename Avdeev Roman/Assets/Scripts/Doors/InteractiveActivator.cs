@@ -13,8 +13,12 @@ public abstract class InteractiveActivator : MonoBehaviour
     {
         _isActivated = false;
     }
-    public void Deactivate()
+    public virtual void Deactivate()
     {
-        _isActivated = false;
+        if (_isActivated)
+        {
+            _isActivated = false;
+            OnDeactivation?.Invoke();
+        }
     }
 }

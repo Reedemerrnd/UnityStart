@@ -13,12 +13,7 @@ public class AIHealth : Health
     public override void Hit(float damage, Transform hitter)
     {
         _wander.TargetLastPos(hitter);
-        _health -= damage;
-        if (_health <= 0)
-        {
-            _isAlive = false;
-            OnDeath?.Invoke();
-        }
+        base.Hit(damage);
     }
 
 }
