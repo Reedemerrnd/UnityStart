@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
+    [SerializeField]
     private float _damage = 10.0f;
     [SerializeField]
     private float _activationTime = 1.0f;
@@ -15,6 +16,9 @@ public class Mine : MonoBehaviour
     private bool _isActivated;
     private Collider[] _targets;
     private int _layermask;
+    private AudioSource _explosionSound;
+    [SerializeField]
+    private ParticleSystem _explosionParticle;
 
     private void Start()
     {
@@ -23,6 +27,8 @@ public class Mine : MonoBehaviour
         _time = Time.time;
         _trigger = GetComponent<SphereCollider>();
         _trigger.enabled = false;
+        _explosionSound = GetComponent<AudioSource>();
+
     }
     private void Update()
     {
@@ -42,16 +48,18 @@ public class Mine : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("Player"))
         {
             _targets = Physics.OverlapSphere(transform.position, 5.0f, _layermask);
-            //var _finTargets = _targets.ToList().Distinct();
             Boom(_targets);
-            Destroy(gameObject);
+            _explosionSound.Play();
+            _explosionParticle.Play();
+            transform.Find("Body").gameObject.SetActive(false);
+            _trigger.enabled = false;
+            Destroy(gameObject,1);
         }
     }
-    private void Boom(IEnumerable<Collider> targ)
+    private void Boom(Collider[] targ)
     {
         foreach (Collider coll in targ)
         {
-            // вызвать  Hit  только на одном объекте
             if (coll.CompareTag("Enemy") || coll.CompareTag("Player"))
             {
 

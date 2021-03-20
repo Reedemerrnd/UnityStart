@@ -14,6 +14,11 @@ public class AIWander : MonoBehaviour
     private float _obstacleRange;
     [SerializeField] 
     private float _attackDistance = 3.0f;
+    [SerializeField]
+    private float _attackSpeed;
+    private float _attackTimer;
+    [SerializeField]
+    private float _damage;
     [SerializeField] 
     private float _rotationSpeed;
     private AIHealth _aiHealth;
@@ -35,6 +40,7 @@ public class AIWander : MonoBehaviour
         _aiHealth = GetComponent<AIHealth>();
         _navAgent.angularSpeed = _rotationSpeed;
         _navAgent.stoppingDistance = _attackDistance;
+        _attackTimer = 0;
         if (_isOnPatrol && _waypoints!=null) 
             _navAgent.SetDestination(_waypoints[_currentWp].position);
     }
@@ -56,11 +62,18 @@ public class AIWander : MonoBehaviour
                     gameObject.transform.LookAt(
                         new Vector3(playerPos.x, 0, playerPos.z)
                         );
+                    if (_attackTimer <= Time.time)
+                    {
+                        _playerPos.gameObject.GetComponent<Health>().Hit(_damage);
+                        _attackTimer = Time.time + _attackSpeed;
+                    }
                 }
 
                 else
-                    _animator.SetBool("PlayerNear", false);
-                _navAgent.isStopped = false;
+                {
+                    RunAnim();
+                    _navAgent.isStopped = false;
+                }
             }
             else if (_isOnPatrol && _waypoints != null)
             {
@@ -72,7 +85,7 @@ public class AIWander : MonoBehaviour
                     _navAgent.SetDestination(_waypoints[_currentWp].position);
                 }
             }
-            else
+            else if (_navAgent.remainingDistance<=_navAgent.stoppingDistance)
             { 
                 Wander();
             }
@@ -92,7 +105,7 @@ public class AIWander : MonoBehaviour
         _movement.z = _speed * Time.deltaTime;
         transform.Translate(_movement);
         {
-            UnityEngine.Ray ray = new UnityEngine.Ray(
+            Ray ray = new Ray(
                 transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.SphereCast(ray, 0.75f, out hit))
@@ -128,6 +141,4 @@ public class AIWander : MonoBehaviour
         _animator.SetBool("PlayerSpot", true);
         _navAgent.speed = _runSpeed;
     }
-
-
 }

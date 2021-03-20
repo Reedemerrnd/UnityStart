@@ -27,6 +27,7 @@ public class Settings : MonoBehaviour
         _backToMainButt.onClick.AddListener(ExitApp);
         _muteToggle.onValueChanged.AddListener(MuteSound);
         _sensivitySlider.onValueChanged.AddListener(SensivityChange);
+        _volumeSlider.onValueChanged.AddListener(VolumeChange);
         _settingsMenu.SetActive(false);
     }
     private void Update()
@@ -61,11 +62,14 @@ public class Settings : MonoBehaviour
     }
     private void MuteSound(bool value)
     {
-        SettingsManager.instance.Mute = value;
+        AudioManager.instance.Mute(value);
+    }
+    private void VolumeChange(float value)
+    {
+        AudioManager.instance.VoumeChange(value);
     }
     private void SensivityChange(float value)
     {
-        //_manager.SetSensivity(value, value);
         SettingsManager.instance.SetSensivity(value, value);
     }
     private void ExitApp()

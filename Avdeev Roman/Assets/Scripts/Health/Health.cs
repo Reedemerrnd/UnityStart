@@ -23,6 +23,7 @@ public abstract class Health : MonoBehaviour
         if (_health <= 0)
         {
             _isAlive = false;
+            OnDeath?.Invoke();
         }
     }
     public virtual void Hit(float damage, Transform hitter)
