@@ -20,13 +20,11 @@ public class RayGun : MonoBehaviour, IWeapon
     void Start()
     {
         _cam = Camera.main;
-        //shooter = transform.parent.transform;
     }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("mb1");
             Fire();
         }
     }
@@ -36,15 +34,14 @@ public class RayGun : MonoBehaviour, IWeapon
 
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
-        if (Physics.Raycast(_cam.transform.position, Vector3.forward, out hit))
         {
-                Debug.DrawLine(transform.position, hit.point, Color.red);
+            Debug.DrawLine(transform.position, hit.point, Color.red,1.0f);
             GameObject hitObj = hit.transform.gameObject;
                 Debug.Log(hit);
             Health target = hitObj.GetComponent<Health>();
             if (target != null)
             {
-                target.Hit(_damage, Shooter);
+                target.Hit(_damage, transform);
 
             }
 
