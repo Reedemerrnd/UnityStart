@@ -10,41 +10,54 @@ public class RayGun : MonoBehaviour, IWeapon
     private float _fireRate;
     private Camera _cam;
     private Transform _camJoint;
+    [SerializeField]
+    private Texture _cross;
 
-    public ParticleSystem particle;
+    //public ParticleSystem particle;
     private Transform shooter;
     public Transform Shooter => shooter;
 
     void Start()
     {
-        //_cam = transform.parent.GetComponent<Camera>();
-        _camJoint = transform.parent.Find("CamJoint");
-        shooter = transform.parent.transform;
+        _cam = Camera.main;
+        //shooter = transform.parent.transform;
+    }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("mb1");
+            Fire();
+        }
     }
     public  void Fire()
     {
-        //Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
-        //if (Physics.Raycast(ray, out hit))
-        if (Physics.Raycast(_camJoint.position, Vector3.forward, out hit))
+        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(_cam.transform.position, Vector3.forward, out hit))
         {
+                Debug.DrawLine(transform.position, hit.point, Color.red);
             GameObject hitObj = hit.transform.gameObject;
-
+                Debug.Log(hit);
             Health target = hitObj.GetComponent<Health>();
             if (target != null)
             {
                 target.Hit(_damage, Shooter);
 
             }
-            else
-            {
-                Instantiate(particle, hit.point, hit.transform.rotation);
-            }
 
         }
 
 
+    }
+    private void OnGUI()
+    {
+            int size = 30;
+            float x = Screen.width / 2 - size / 4;
+            float y = Screen.height / 2 - size / 2;
+            GUI.Label(new Rect(x, y, size, size), _cross);
     }
 
     public void BuffDamage(bool buffed)

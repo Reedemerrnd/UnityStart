@@ -116,6 +116,14 @@ public class AIWander : MonoBehaviour
                 }
         }
     }
+    public void SetOnPAtrol(List<Transform> waypoints)
+    {
+        if (waypoints.Count <= 0) return;
+        _isOnPatrol = true;
+        _waypoints = waypoints;
+        if(_waypoints.Count>0)
+            _navAgent.SetDestination(_waypoints[_currentWp].position);
+    }
     public void TargetSpotted(Transform target)
     {
         RunAnim();

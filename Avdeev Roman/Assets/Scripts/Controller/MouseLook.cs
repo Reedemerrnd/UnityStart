@@ -22,7 +22,7 @@ public class MouseLook : MonoBehaviour
     private void Start()
     {
         _camJoint = transform.Find("CamJoint");
-        _weaponJoint = transform.Find("JointWeap");
+        //_weaponJoint = transform.Find("JointWeap");
     }
 
     // Update is called once per frame
@@ -34,9 +34,9 @@ public class MouseLook : MonoBehaviour
 
             float delta = Input.GetAxis("Mouse X") * _sensivityHor;
             float rotationY = transform.localEulerAngles.y + delta;
-            transform.localEulerAngles = new Vector3(0, rotationY, 0);
+            //transform.localEulerAngles = new Vector3(0, rotationY, 0);
             _camJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
-            _weaponJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
+            //_weaponJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
         //_cam.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
 
     }

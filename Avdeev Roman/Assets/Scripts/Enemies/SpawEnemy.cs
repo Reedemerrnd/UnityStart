@@ -4,17 +4,36 @@ using UnityEngine;
 
 public class SpawEnemy : MonoBehaviour
 {
-    public GameObject Zombie;
-    public Transform SpawnPos;
+    [SerializeField]
+    private bool _spawnPatrol;
+    [SerializeField]
+    private List<Transform> _waypoints;
+
+    [SerializeField]
+    private GameObject Zombie;
+    [SerializeField]
+    private Transform SpawnPos;
+    private GameObject _enemy;
     // Start is called before the first frame update
     void Start()
     {
-        var enemy = Instantiate(Zombie, SpawnPos.position, SpawnPos.rotation);
+        Spawn();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Spawn();
+    }
+    public void Spawn()
+    {
+        if (_enemy == null)
+        {
+            _enemy = Instantiate(Zombie, SpawnPos.position, SpawnPos.rotation);
+            if (_spawnPatrol && _waypoints.Count>0)
+            {
+                _enemy.GetComponent<AIWander>().SetOnPAtrol(_waypoints);
+            }
+        }
     }
 }

@@ -30744,6 +30744,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 239787578146068049, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 239787578146068054, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -30787,78 +30791,6 @@ PrefabInstance:
     - target: {fileID: 239787578146068054, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096399495121593109, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: _fireRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1096399495121593109, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: _baseDamage
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1701176444523590880, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1701176444523590880, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Intensity
-      value: 77.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272430222424547436, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Range
-      value: 38.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272430222424547436, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Color.b
-      value: 0.9811321
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272430222424547436, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Color.g
-      value: 0.94892514
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272430222424547436, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Color.r
-      value: 0.91078675
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272430222424547436, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_Intensity
-      value: 2.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3272430222424547436, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_SpotAngle
-      value: 43
-      objectReference: {fileID: 0}
-    - target: {fileID: 5300775255529749267, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_TagString
-      value: MainCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5525952420847330908, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: _baseDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5525952420847330908, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: _throwingForce
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8624176336840138289, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173148963658552945, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173148963658552945, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173148963658552945, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.115
-      objectReference: {fileID: 0}
-    - target: {fileID: 9173148963658552945, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.192
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78dced7b3b6d3ae4ea48778e25dadea0, type: 3}
