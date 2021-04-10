@@ -22,6 +22,7 @@ public class AIWander : MonoBehaviour
     [SerializeField] 
     private float _rotationSpeed;
     private AIHealth _aiHealth;
+    private Ragdoll _ragdoll;
     private bool _playerSpotted = false;
     private Transform _playerPos;
     private Vector3 _lastPosition;
@@ -38,6 +39,7 @@ public class AIWander : MonoBehaviour
         _animator = GetComponent<Animator>();
         _navAgent = GetComponent<NavMeshAgent>();
         _aiHealth = GetComponent<AIHealth>();
+        _ragdoll = GetComponent<Ragdoll>();
         _navAgent.angularSpeed = _rotationSpeed;
         _navAgent.stoppingDistance = _attackDistance;
         _attackTimer = 0;
@@ -94,9 +96,7 @@ public class AIWander : MonoBehaviour
         }
         else if (!_aiHealth.IsAlive)
         {
-            _navAgent.isStopped = true;
-            _animator.SetBool("Death", true);
-            Destroy(gameObject, 2);
+            Die();
         }
     }
     private void Wander()
@@ -148,5 +148,11 @@ public class AIWander : MonoBehaviour
         _animator.SetBool("PlayerNear", false);
         _animator.SetBool("PlayerSpot", true);
         _navAgent.speed = _runSpeed;
+    }
+    private void Die()
+    {
+        _navAgent.isStopped = true;
+        _ragdoll.SetRagdoll(true);
+        Destroy(gameObject, 4);
     }
 }

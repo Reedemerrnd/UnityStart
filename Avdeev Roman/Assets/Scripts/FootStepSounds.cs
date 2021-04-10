@@ -13,7 +13,10 @@ public class FootStepSounds : MonoBehaviour
     }
     public void PlayFootstepSound()
     {
-        int r = Random.Range(0, _stepSounds.Length);
-        _audioSource.PlayOneShot(_stepSounds[r]);
+        if (_stepSounds.Length>0)
+        {
+            int r = Random.Range(0, _stepSounds.Length);
+            _audioSource.PlayOneShot(_stepSounds[r]);
+        }
     }
 }

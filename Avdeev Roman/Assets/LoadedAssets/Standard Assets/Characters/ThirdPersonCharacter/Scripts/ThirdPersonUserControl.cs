@@ -4,7 +4,6 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
-    
     [RequireComponent(typeof (ThirdPersonCharacter))]
     public class ThirdPersonUserControl : MonoBehaviour
     {
@@ -13,15 +12,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-        [SerializeField]
-        private float _sens;
 
-
-
+        
         private void Start()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
             // get the transform of the main camera
             if (Camera.main != null)
             {
@@ -52,17 +46,16 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void FixedUpdate()
         {
             // read inputs
-            //float h = CrossPlatformInputManager.GetAxis("Horizontal");
-            float h = Input.GetAxis("Mouse X")*_sens;
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
             bool crouch = Input.GetKey(KeyCode.C);
-            m_Move = new Vector3(h, 0, v);
+
             // calculate move direction to pass to character
             if (m_Cam != null)
             {
                 // calculate camera relative direction to move:
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
-                //m_Move = v*m_CamForward + h*m_Cam.right;
+                m_Move = v*m_CamForward + h*m_Cam.right;
             }
             else
             {

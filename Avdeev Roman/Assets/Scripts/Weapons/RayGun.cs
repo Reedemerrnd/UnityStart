@@ -20,6 +20,8 @@ public class RayGun : MonoBehaviour, IWeapon
     void Start()
     {
         _cam = Camera.main;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     private void Update()
     {

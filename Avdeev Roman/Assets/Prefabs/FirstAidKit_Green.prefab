@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6543802653874188317}
   m_Layer: 0
   m_Name: FirstAidKit_Green
-  m_TagString: Untagged
+  m_TagString: PickableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

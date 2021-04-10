@@ -10,14 +10,19 @@ public class MouseLook : MonoBehaviour
     private float _sensivityHor = 10.0f;
     [SerializeField]
     private float _sensivityVer = 10.0f;
+    [SerializeField]
+    private float _camReturnSpeed;
     public float SensivityX { get=>_sensivityHor; set=>_sensivityHor = value; }
     public float SensivityY { get => _sensivityVer; set => _sensivityVer = value; }
     private Transform _camJoint;
     private Transform _weaponJoint;
-    private float minVert = -90.0f;
-    private float maxVert = 90.0f;
+    private float _minVert = -90.0f;
+    private float _maxVert = 90.0f;
+    private float _minHor = -90.0f;
+    private float _maxHor = 90.0f;
 
     private float _rotationX = 0;
+    private float _rotationY = 0;
 
     private void Start()
     {
@@ -28,16 +33,20 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-            _rotationX -= Input.GetAxis("Mouse Y") * _sensivityVer;
-            _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
 
-            float delta = Input.GetAxis("Mouse X") * _sensivityHor;
-            float rotationY = transform.localEulerAngles.y + delta;
-            //transform.localEulerAngles = new Vector3(0, rotationY, 0);
-            _camJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
-            //_weaponJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
-        //_cam.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
+        _rotationX -= Input.GetAxis("Mouse Y") * _sensivityVer;
+        float delta = Input.GetAxis("Mouse X") * _sensivityHor;
+        _rotationY += delta;
+        _rotationX = Mathf.Clamp(_rotationX, _minVert, _maxVert);
+        _rotationY = Mathf.Clamp(_rotationY, _minHor, _maxHor);
+
+        //центрировать камеру при начале движения     
+        if (Input.GetAxis("Vertical") != 0 && delta == 0)
+        {
+            _rotationY = Mathf.LerpAngle(_rotationY, 0, _camReturnSpeed*Time.deltaTime);            
+        }
+        _camJoint.localEulerAngles = new Vector3(_rotationX, _rotationY, 0);
+        //_weaponJoint.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
 
     }
 

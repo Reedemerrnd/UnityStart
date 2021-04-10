@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpawEnemy : MonoBehaviour
 {
     [SerializeField]
+    private bool _ContiniousSpawn = false;
+    [SerializeField]
     private bool _spawnPatrol;
     [SerializeField]
     private List<Transform> _waypoints;
@@ -23,7 +25,8 @@ public class SpawEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Spawn();
+        if(_ContiniousSpawn)
+            Spawn();
     }
     public void Spawn()
     {
