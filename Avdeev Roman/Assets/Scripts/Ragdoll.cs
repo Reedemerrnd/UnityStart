@@ -14,6 +14,7 @@ public class Ragdoll : MonoBehaviour
         _rigidbodies = GetComponentsInChildren<Rigidbody>();
         _colliders = GetComponentsInChildren<Collider>();
         _anim = GetComponent<Animator>();
+        SetRagdoll(false);
 
     }
     public void SetRagdoll(bool active)

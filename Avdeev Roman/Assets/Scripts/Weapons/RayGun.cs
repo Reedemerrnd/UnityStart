@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayGun : MonoBehaviour, IWeapon
+public class RayGun : MonoBehaviour, IWeapon, IBuffed
 {
     [SerializeField]
     private float _damage;
@@ -61,6 +61,11 @@ public class RayGun : MonoBehaviour, IWeapon
 
     public void BuffDamage(bool buffed)
     {
-        throw new System.NotImplementedException();
+        return;
+    }
+
+    public void Buff(float duration)
+    {
+        return;
     }
 }

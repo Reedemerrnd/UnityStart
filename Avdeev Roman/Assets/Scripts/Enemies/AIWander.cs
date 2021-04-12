@@ -40,6 +40,7 @@ public class AIWander : MonoBehaviour
         _navAgent = GetComponent<NavMeshAgent>();
         _aiHealth = GetComponent<AIHealth>();
         _ragdoll = GetComponent<Ragdoll>();
+        _aiHealth.OnDeath += Die;
         _navAgent.angularSpeed = _rotationSpeed;
         _navAgent.stoppingDistance = _attackDistance;
         _attackTimer = 0;
@@ -93,10 +94,6 @@ public class AIWander : MonoBehaviour
             }
 
 
-        }
-        else if (!_aiHealth.IsAlive)
-        {
-            Die();
         }
     }
     private void Wander()
